@@ -48,7 +48,7 @@ class tasksController extends Controller
     {
         $this->validate($request, [
             'content' => 'required|max:191',
-            'status' => 'required|max:191',
+            'status' => 'required|max:10',
         ]);
         
         
@@ -86,7 +86,7 @@ class tasksController extends Controller
          $task = task::find($id);
 
         return view('tasks.edit', [
-            'tasks' => $task,
+            'task' => $task,
         ]);
     }
 
@@ -101,13 +101,13 @@ class tasksController extends Controller
     {
         
          $this->validate($request, [
-            'status' => 'required|max:191',   // 追加
+            'status' => 'required|max:10',   // 追加
             'content' => 'required|max:191',
         ]);
         
         $tasks = task::find($id);
-        $tasks->status = $request->status;
         $tasks->content = $request->content;
+        $tasks->status = $request->status;
         $tasks->save();
 
         return redirect('/');
